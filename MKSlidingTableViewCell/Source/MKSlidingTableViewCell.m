@@ -7,13 +7,17 @@
 //
 
 #import "MKSlidingTableViewCell.h"
+#import "MKActionTableViewCell.h"
 
 NSString * const MKDrawerDidOpenNotification = @"MKDrawerDidOpenNotification";
 NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 
 @interface MKSlidingTableViewCell () <UIScrollViewDelegate>
+
 @property (nonatomic, strong) UIScrollView *containerScrollView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+@property (weak, nonatomic) MKActionTableViewCell *actionCell;
+
 @end
 
 @implementation MKSlidingTableViewCell
@@ -127,6 +131,14 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 {
     [self.drawerView removeFromSuperview];
     _drawerView = drawerView;
+    
+    if([drawerView isKindOfClass:[MKActionTableViewCell class]])
+    {
+        MKActionTableViewCell *actionCell = (MKActionTableViewCell*)drawerView;
+        [self setDrawerRevealAmount:actionCell.actionBounds.size.width];
+        self.actionCell = actionCell;
+    }
+    
     [self setNeedsLayout];
 }
 
@@ -164,6 +176,11 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     
     CGFloat drawerX = scrollView.contentOffset.x + (CGRectGetWidth(self.bounds) - self.drawerRevealAmount);
     self.drawerView.frame = CGRectMake(drawerX, 0, self.drawerRevealAmount, CGRectGetHeight(self.bounds));
+    
+    CGFloat progress = self.containerScrollView.contentOffset.x / self.drawerRevealAmount;
+    NSLog(@"progress = %@",@(progress));
+    
+    [self.actionCell setRevealProgress:progress];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset

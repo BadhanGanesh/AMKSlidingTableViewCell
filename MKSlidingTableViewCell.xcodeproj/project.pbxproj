@@ -20,6 +20,8 @@
 		1E067DCA17BD947C00175ED7 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E067DC817BD947C00175ED7 /* MainStoryboard_iPad.storyboard */; };
 		1E067DCD17BD947C00175ED7 /* MKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E067DCC17BD947C00175ED7 /* MKViewController.m */; };
 		1E067DEE17BD950200175ED7 /* MKSlidingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E067DED17BD950200175ED7 /* MKSlidingTableViewCell.m */; };
+		C8BF78821BA6F30700A118B7 /* MKActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BF78811BA6F30700A118B7 /* MKActionTableViewCell.m */; };
+		C8BF78841BA6FB0B00A118B7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BF78831BA6FB0B00A118B7 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +44,9 @@
 		1E067DCC17BD947C00175ED7 /* MKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MKViewController.m; sourceTree = "<group>"; };
 		1E067DEC17BD950200175ED7 /* MKSlidingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKSlidingTableViewCell.h; sourceTree = "<group>"; };
 		1E067DED17BD950200175ED7 /* MKSlidingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKSlidingTableViewCell.m; sourceTree = "<group>"; };
+		C8BF78801BA6F30700A118B7 /* MKActionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKActionTableViewCell.h; sourceTree = "<group>"; };
+		C8BF78811BA6F30700A118B7 /* MKActionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKActionTableViewCell.m; sourceTree = "<group>"; };
+		C8BF78831BA6FB0B00A118B7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8BF78841BA6FB0B00A118B7 /* QuartzCore.framework in Frameworks */,
 				1E067DAE17BD947C00175ED7 /* UIKit.framework in Frameworks */,
 				1E067DB017BD947C00175ED7 /* Foundation.framework in Frameworks */,
 				1E067DB217BD947C00175ED7 /* CoreGraphics.framework in Frameworks */,
@@ -78,6 +84,7 @@
 		1E067DAC17BD947C00175ED7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C8BF78831BA6FB0B00A118B7 /* QuartzCore.framework */,
 				1E067DAD17BD947C00175ED7 /* UIKit.framework */,
 				1E067DAF17BD947C00175ED7 /* Foundation.framework */,
 				1E067DB117BD947C00175ED7 /* CoreGraphics.framework */,
@@ -119,6 +126,8 @@
 			children = (
 				1E067DEC17BD950200175ED7 /* MKSlidingTableViewCell.h */,
 				1E067DED17BD950200175ED7 /* MKSlidingTableViewCell.m */,
+				C8BF78801BA6F30700A118B7 /* MKActionTableViewCell.h */,
+				C8BF78811BA6F30700A118B7 /* MKActionTableViewCell.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -193,6 +202,7 @@
 			files = (
 				1E067DBA17BD947C00175ED7 /* main.m in Sources */,
 				1E067DBE17BD947C00175ED7 /* MKAppDelegate.m in Sources */,
+				C8BF78821BA6F30700A118B7 /* MKActionTableViewCell.m in Sources */,
 				1E067DCD17BD947C00175ED7 /* MKViewController.m in Sources */,
 				1E067DEE17BD950200175ED7 /* MKSlidingTableViewCell.m in Sources */,
 			);
@@ -296,6 +306,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MKSlidingTableViewCell/MKSlidingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "MKSlidingTableViewCell/MKSlidingTableViewCell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -312,6 +323,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MKSlidingTableViewCell/MKSlidingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "MKSlidingTableViewCell/MKSlidingTableViewCell-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

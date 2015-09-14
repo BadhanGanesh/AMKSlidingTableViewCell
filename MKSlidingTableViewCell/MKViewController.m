@@ -45,7 +45,6 @@
     
     cell.foregroundView = foregroundCell;
     cell.drawerView = backgroundCell;
-    cell.drawerRevealAmount = 146;
     cell.delegate = self;
     
     foregroundCell.textLabel.text = self.data[indexPath.row];
