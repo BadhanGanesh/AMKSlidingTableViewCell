@@ -181,12 +181,15 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     {
         scrollView.contentOffset = CGPointZero;
     }
+    else if (self.containerScrollView.contentOffset.x > self.drawerRevealAmount)
+    {
+        scrollView.contentOffset = CGPointMake(self.drawerRevealAmount, 0);
+    }
     
     CGFloat drawerX = scrollView.contentOffset.x + (CGRectGetWidth(self.bounds) - self.drawerRevealAmount);
     self.drawerView.frame = CGRectMake(drawerX, 0, self.drawerRevealAmount, CGRectGetHeight(self.bounds));
     
     CGFloat progress = self.containerScrollView.contentOffset.x / self.drawerRevealAmount;
-    NSLog(@"progress = %@",@(progress));
     
     [self.actionCell setRevealProgress:progress];
     [self.mainActionCell setRevealProgress:progress];

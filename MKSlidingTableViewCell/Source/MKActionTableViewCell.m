@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIView *transformableContainer;
 @property (strong, nonatomic) UIView *shadowView;
 @property (assign, nonatomic) IBInspectable BOOL isBackground;
+@property (assign, nonatomic) IBInspectable CGFloat shadowOpacity;
 @property (strong, nonatomic) CALayer *shadowLayer;
 
 @end
@@ -64,45 +65,6 @@
         
         [self.shadowView.layer addSublayer:shadowLayer];
     }
-    else
-    {
-        self.shadowView = [[UIView alloc] initWithFrame:self.actionContainer.bounds];
-        self.shadowView.clipsToBounds = YES;
-        self.shadowView.layer.masksToBounds = YES;
-        self.shadowView.frame = CGRectOffset(CGRectInset(self.actionContainer.bounds, -20, -2), 20, -1);
-        self.shadowView.backgroundColor = [UIColor clearColor];
-        [self addSubview:self.shadowView];
-        
-        CAShapeLayer* shadowLayer = [CAShapeLayer layer];
-        [shadowLayer setFrame:self.shadowView.bounds];
-        
-        // Standard shadow stuff
-        [shadowLayer setShadowColor:[[UIColor colorWithWhite:0 alpha:1] CGColor]];
-        [shadowLayer setShadowOffset:CGSizeMake(-1.0f, 0.0f)];
-        [shadowLayer setShadowOpacity:0.7f];
-        [shadowLayer setShadowRadius:7];
-        
-        // Causes the inner region in this example to NOT be filled.
-        [shadowLayer setFillRule:kCAFillRuleEvenOdd];
-        
-        // Create the larger rectangle path.
-        CGMutablePathRef path = CGPathCreateMutable();
-        CGPathAddRect(path, NULL, CGRectInset(self.shadowView.bounds, -42, -42));
-        
-        // Add the inner path so it's subtracted from the outer path.
-        // someInnerPath could be a simple bounds rect, or maybe
-        // a rounded one for some extra fanciness.
-        CGPathAddRect(path, NULL, self.shadowView.bounds);
-        CGPathCloseSubpath(path);
-        
-        [shadowLayer setPath:path];
-        CGPathRelease(path);
-        
-        [self.shadowView.layer addSublayer:shadowLayer];
-        self.shadowLayer = shadowLayer;
-        self.shadowView.frame = self.actionContainer.bounds;
-        self.shadowView.alpha = 0;
-    }
 }
 
 - (void)setRevealProgress:(CGFloat)revealProgress
@@ -123,6 +85,7 @@
         self.actionContainer.layer.transform = CATransform3DTranslate(CATransform3DIdentity, width * progress, 0, 0);
         
         self.shadowView.alpha = progress;
+        self.transformableContainer.alpha = self.shadowOpacity + (1.0f - self.shadowOpacity) * revealProgress;
     }
     else
     {
@@ -139,6 +102,7 @@
         self.shadowView.alpha = progress;
         self.shadowLayer.transform = CATransform3DTranslate(CATransform3DIdentity, width * progress, 0, 0);
         [self.shadowLayer setNeedsDisplay];
+        self.transformableContainer.alpha = self.shadowOpacity + (1.0f - self.shadowOpacity) * (1.0f - revealProgress);
         [self setNeedsDisplay];
     }
 }
