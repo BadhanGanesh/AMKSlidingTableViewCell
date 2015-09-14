@@ -47,7 +47,7 @@
     cell.drawerView = backgroundCell;
     cell.delegate = self;
     
-    foregroundCell.textLabel.text = self.data[indexPath.row];
+//    foregroundCell.textLabel.text = self.data[indexPath.row];
     
     return cell;
 }

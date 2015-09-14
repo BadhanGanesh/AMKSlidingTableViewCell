@@ -17,6 +17,7 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 @property (nonatomic, strong) UIScrollView *containerScrollView;
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (weak, nonatomic) MKActionTableViewCell *actionCell;
+@property (weak, nonatomic) MKActionTableViewCell *mainActionCell;
 
 @end
 
@@ -146,6 +147,13 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 {
     [_foregroundView removeFromSuperview];
     _foregroundView = foregroundView;
+    
+    if([foregroundView isKindOfClass:[MKActionTableViewCell class]])
+    {
+        MKActionTableViewCell *actionCell = (MKActionTableViewCell*)foregroundView;
+        self.mainActionCell = actionCell;
+    }
+    
     [self setNeedsLayout];
 }
 
@@ -181,6 +189,7 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     NSLog(@"progress = %@",@(progress));
     
     [self.actionCell setRevealProgress:progress];
+    [self.mainActionCell setRevealProgress:progress];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
