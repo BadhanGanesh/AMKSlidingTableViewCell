@@ -113,41 +113,7 @@
 
 - (void)didChangedToStep:(NSInteger)step
 {
-    if (step == _currentStep) {
-        return;
-    }
     
-    NSLog(@"CURRENT STEP: %@",@(step));
-    _currentStep = step;
-    [UIView animateWithDuration:0.4 animations:^{
-        switch (step) {
-            case 1:
-                self.actionContainer.backgroundColor = [UIColor redColor];
-                break;
-            case 2:
-                self.actionContainer.backgroundColor = [UIColor greenColor];
-                break;
-            case 3:
-                self.actionContainer.backgroundColor = [UIColor blueColor];
-                break;
-            case 4:
-                self.actionContainer.backgroundColor = [UIColor redColor];
-                break;
-            case 5:
-                self.actionContainer.backgroundColor = [UIColor greenColor];
-                break;
-            case 6:
-                self.actionContainer.backgroundColor = [UIColor blueColor];
-                break;
-            case 7:
-                self.actionContainer.backgroundColor = [UIColor redColor];
-                break;
-                
-            default:
-                self.actionContainer.backgroundColor = [UIColor grayColor];
-                break;
-        }
-    }];
 }
 
 - (NSInteger)currentStep {
