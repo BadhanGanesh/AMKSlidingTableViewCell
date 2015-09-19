@@ -18,6 +18,9 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 @property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 @property (weak, nonatomic) MKActionTableViewCell *actionCell;
 @property (weak, nonatomic) MKActionTableViewCell *mainActionCell;
+@property (assign, nonatomic) IBInspectable BOOL bounceLeft;
+@property (assign, nonatomic) IBInspectable BOOL autoClose;
+@property (assign, nonatomic) IBInspectable CGFloat autoCloseDelay;
 
 @end
 
@@ -181,7 +184,7 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     {
         scrollView.contentOffset = CGPointZero;
     }
-    else if (self.containerScrollView.contentOffset.x > self.drawerRevealAmount)
+    else if (self.containerScrollView.contentOffset.x > self.drawerRevealAmount && !self.bounceLeft)
     {
         scrollView.contentOffset = CGPointMake(self.drawerRevealAmount, 0);
     }
@@ -193,35 +196,67 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     
     [self.actionCell setRevealProgress:progress];
     [self.mainActionCell setRevealProgress:progress];
+    
+    // Check steps
+    NSInteger step = [self computeCurrentStepForOffset:scrollView.contentOffset];
+    [self.actionCell didChangedToStep:step];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
-    if (scrollView.contentOffset.x > (self.drawerRevealAmount / 2))
-    {
-        if (velocity.x < -0.4)
+    if (self.drawerRevealSteps <= 1) {
+        if (scrollView.contentOffset.x > (self.drawerRevealAmount / 2))
         {
-            *targetContentOffset = CGPointZero;
+            if (velocity.x < -0.4)
+            {
+                *targetContentOffset = CGPointZero;
+            }
+            else
+            {
+                [self openDrawerWithTargetContentOffset:targetContentOffset];
+            }
+        }
+        else if (scrollView.contentOffset.x == 0)
+        {
+            [self postCloseDrawerNotification];
         }
         else
         {
-            [self openDrawerWithTargetContentOffset:targetContentOffset];
+            if (velocity.x > 0.4)
+            {
+                [self openDrawerWithTargetContentOffset:targetContentOffset];
+            }
+            else
+            {
+                *targetContentOffset = CGPointZero;
+            }
         }
     }
-    else if (scrollView.contentOffset.x == 0)
-    {
-        [self postCloseDrawerNotification];
-    }
-    else
-    {
-        if (velocity.x > 0.4)
+    else {
+        // Check steps
+        NSInteger step = [self computeCurrentStepForOffset:scrollView.contentOffset];
+        CGFloat stepRevealAmount = self.drawerRevealAmount / self.drawerRevealSteps;
+        
+        if (scrollView.contentOffset.x == 0)
         {
-            [self openDrawerWithTargetContentOffset:targetContentOffset];
+            [self postCloseDrawerNotification];
         }
-        else
+        else if(step == 0)
         {
             *targetContentOffset = CGPointZero;
         }
+        else if(step != NSNotFound)
+        {
+            [scrollView setContentOffset:CGPointMake(step * stepRevealAmount, 0) animated:YES];
+            [self postOpenDrawerNotification];
+        }
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if(self.autoClose) {
+        [self performAutoCloseAfterDelay:self.autoCloseDelay];
     }
 }
 
@@ -231,11 +266,20 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     {
         [self postCloseDrawerNotification];
     }
+    else if(self.autoClose) {
+        [self performAutoCloseAfterDelay:self.autoCloseDelay];
+    }
 }
 
 - (void)openDrawerWithTargetContentOffset:(inout CGPoint *)targetContentOffset
 {
     targetContentOffset->x = self.drawerRevealAmount;
+    [self postOpenDrawerNotification];
+}
+
+- (void)openDrawerWithTargetContentOffset:(inout CGPoint *)targetContentOffset andStep:(NSInteger)step
+{
+    targetContentOffset->x = self.drawerRevealAmount * (step / self.drawerRevealSteps);
     [self postOpenDrawerNotification];
 }
 
@@ -273,6 +317,54 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
             completion();
         }
     }];
+}
+
+#pragma mark - Step methods
+
+- (NSInteger)computeCurrentStepForOffset:(CGPoint)offset
+{
+    if(self.actionCell && self.drawerRevealSteps > 0)
+    {
+        if(offset.x < 0)
+        {
+            return 0;
+        }
+        
+        CGFloat stepRevealAmount = self.drawerRevealAmount / self.drawerRevealSteps;
+        NSInteger currentStep = self.actionCell.currentStep;
+        currentStep = MAX(0, MIN(self.drawerRevealSteps, currentStep));
+        NSInteger offsetStep = (NSInteger) ((offset.x + stepRevealAmount/2) / stepRevealAmount);
+        offsetStep = MAX(0, MIN(self.drawerRevealSteps, offsetStep));
+        NSInteger offsetHardStep = (NSInteger) ((offset.x - stepRevealAmount/4) / stepRevealAmount);
+        offsetHardStep = MAX(0, MIN(self.drawerRevealSteps, offsetHardStep));
+        
+        if (ABS(offsetStep - currentStep)>1)
+        {
+            return offsetStep;
+        }
+        if(offsetStep == offsetHardStep || offsetStep == self.drawerRevealSteps)
+        {
+            return offsetStep;
+        }
+        
+        return currentStep;
+    }
+    
+    return NSNotFound;
+}
+
+#pragma mark - Auto Close methods
+
+- (void)performAutoCloseAfterDelay:(NSTimeInterval)delay
+{
+    [self cancelAutoClose];
+    
+    [self performSelector:@selector(closeDrawer) withObject:nil afterDelay:delay];
+}
+
+- (void)cancelAutoClose
+{
+    [UIView cancelPreviousPerformRequestsWithTarget:self selector:@selector(closeDrawer) object:nil];
 }
 
 #pragma mark - Public Methods

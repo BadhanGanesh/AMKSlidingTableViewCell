@@ -20,6 +20,16 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="drawerRevealSteps">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="autoCloseDelay">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="autoClose" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bounceLeft" value="NO"/>
+                                </userDefinedRuntimeAttributes>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="foreground" id="chj-La-jQb" customClass="MKActionTableViewCell">
                                 <rect key="frame" x="0.0" y="66" width="320" height="44"/>

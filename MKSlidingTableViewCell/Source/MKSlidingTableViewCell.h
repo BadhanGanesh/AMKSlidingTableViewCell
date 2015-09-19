@@ -22,6 +22,8 @@ extern NSString * const MKDrawerDidCloseNotification;
 @property (nonatomic, getter = isOpen) BOOL open;
 @property (nonatomic, assign) BOOL forwardInvocationsToForegroundView;
 
+@property (assign, nonatomic) IBInspectable NSInteger drawerRevealSteps;
+
 - (void)openDrawer;
 - (void)closeDrawer:(void(^)())completion;
 

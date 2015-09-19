@@ -15,12 +15,15 @@
 @property (weak, nonatomic) IBOutlet UIView *transformableContainer;
 @property (strong, nonatomic) UIView *shadowView;
 @property (assign, nonatomic) IBInspectable BOOL isBackground;
+@property (assign, nonatomic) IBInspectable BOOL shadowHidden;
 @property (assign, nonatomic) IBInspectable CGFloat shadowOpacity;
 @property (strong, nonatomic) CALayer *shadowLayer;
 
 @end
 
 @implementation MKActionTableViewCell
+
+@synthesize currentStep = _currentStep;
 
 - (CGRect)actionBounds {
     return self.actionContainer.bounds;
@@ -30,8 +33,9 @@
 {
     [super awakeFromNib];
     
+    _currentStep = 0;
     
-    if(self.isBackground)
+    if(self.isBackground && !self.shadowHidden)
     {
         self.shadowView = [[UIView alloc] initWithFrame:self.bounds];
         self.shadowView.frame = CGRectOffset(CGRectInset(self.actionContainer.bounds, -20, -2), -20, 0);
@@ -105,6 +109,49 @@
         self.transformableContainer.alpha = self.shadowOpacity + (1.0f - self.shadowOpacity) * (1.0f - revealProgress);
         [self setNeedsDisplay];
     }
+}
+
+- (void)didChangedToStep:(NSInteger)step
+{
+    if (step == _currentStep) {
+        return;
+    }
+    
+    NSLog(@"CURRENT STEP: %@",@(step));
+    _currentStep = step;
+    [UIView animateWithDuration:0.4 animations:^{
+        switch (step) {
+            case 1:
+                self.actionContainer.backgroundColor = [UIColor redColor];
+                break;
+            case 2:
+                self.actionContainer.backgroundColor = [UIColor greenColor];
+                break;
+            case 3:
+                self.actionContainer.backgroundColor = [UIColor blueColor];
+                break;
+            case 4:
+                self.actionContainer.backgroundColor = [UIColor redColor];
+                break;
+            case 5:
+                self.actionContainer.backgroundColor = [UIColor greenColor];
+                break;
+            case 6:
+                self.actionContainer.backgroundColor = [UIColor blueColor];
+                break;
+            case 7:
+                self.actionContainer.backgroundColor = [UIColor redColor];
+                break;
+                
+            default:
+                self.actionContainer.backgroundColor = [UIColor grayColor];
+                break;
+        }
+    }];
+}
+
+- (NSInteger)currentStep {
+    return _currentStep;
 }
 
 @end
