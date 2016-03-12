@@ -5,8 +5,8 @@ Customizable sliding cell behavior. Based on MKSlidingTableViewCell, adds few ne
 
 ## Screenshots:
 
-![Custom style Screenshot](Screenshots/mk_mov_1.gif)
-![Cosmetic Scan Screenshot](Screenshots/mk_mov_2.gif)
+![Custom style Screenshot](https://raw.githubusercontent.com/amichnia/AMKSlidingTableViewCell/master/Screenshots/mk_mov_1.gif)
+![Cosmetic Scan Screenshot](https://raw.githubusercontent.com/amichnia/AMKSlidingTableViewCell/master/Screenshots/mk_mov_2.gif)
 
 # Usage
 
