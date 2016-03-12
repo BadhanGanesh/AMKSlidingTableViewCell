@@ -34,7 +34,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 8;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -42,6 +42,11 @@
     MKSlidingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"container"];
     UITableViewCell *foregroundCell = [tableView dequeueReusableCellWithIdentifier:@"foreground"];
     UITableViewCell *backgroundCell = [tableView dequeueReusableCellWithIdentifier:@"background"];
+    
+    if(indexPath.row > 3) {
+        foregroundCell = [tableView dequeueReusableCellWithIdentifier:@"foreground2"];
+        backgroundCell = [tableView dequeueReusableCellWithIdentifier:@"background2"];
+    }
     
     cell.foregroundView = foregroundCell;
     cell.drawerView = backgroundCell;

@@ -13,6 +13,7 @@
 @property (assign, nonatomic, readonly) CGRect actionBounds;
 @property (assign, nonatomic) CGFloat revealProgress;
 @property (assign, nonatomic, readonly) NSInteger currentStep;
+@property (assign, nonatomic) BOOL isBackground;
 
 - (void)didChangedToStep:(NSInteger)step;
 

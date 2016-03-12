@@ -14,7 +14,6 @@
 @property (weak, nonatomic) IBOutlet UIView *actionContainer;
 @property (weak, nonatomic) IBOutlet UIView *transformableContainer;
 @property (strong, nonatomic) UIView *shadowView;
-@property (assign, nonatomic) IBInspectable BOOL isBackground;
 @property (assign, nonatomic) IBInspectable BOOL shadowHidden;
 @property (assign, nonatomic) IBInspectable CGFloat shadowOpacity;
 @property (strong, nonatomic) CALayer *shadowLayer;

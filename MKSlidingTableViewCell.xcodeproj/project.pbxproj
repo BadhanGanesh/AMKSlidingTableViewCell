@@ -22,6 +22,7 @@
 		1E067DEE17BD950200175ED7 /* MKSlidingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E067DED17BD950200175ED7 /* MKSlidingTableViewCell.m */; };
 		C8BF78821BA6F30700A118B7 /* MKActionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8BF78811BA6F30700A118B7 /* MKActionTableViewCell.m */; };
 		C8BF78841BA6FB0B00A118B7 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8BF78831BA6FB0B00A118B7 /* QuartzCore.framework */; };
+		FE8271481C945C48009327C5 /* MKSwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8271471C945C48009327C5 /* MKSwiftViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		C8BF78801BA6F30700A118B7 /* MKActionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MKActionTableViewCell.h; sourceTree = "<group>"; };
 		C8BF78811BA6F30700A118B7 /* MKActionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKActionTableViewCell.m; sourceTree = "<group>"; };
 		C8BF78831BA6FB0B00A118B7 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FE8271461C945C48009327C5 /* MKSlidingTableViewCell-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MKSlidingTableViewCell-Bridging-Header.h"; sourceTree = "<group>"; };
+		FE8271471C945C48009327C5 /* MKSwiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MKSwiftViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,8 +104,10 @@
 				1E067DC817BD947C00175ED7 /* MainStoryboard_iPad.storyboard */,
 				1E067DCB17BD947C00175ED7 /* MKViewController.h */,
 				1E067DCC17BD947C00175ED7 /* MKViewController.m */,
+				FE8271471C945C48009327C5 /* MKSwiftViewController.swift */,
 				1E067DB417BD947C00175ED7 /* Supporting Files */,
 				1EB6AA6117CC5DC6006688EB /* Source */,
+				FE8271461C945C48009327C5 /* MKSlidingTableViewCell-Bridging-Header.h */,
 			);
 			path = MKSlidingTableViewCell;
 			sourceTree = "<group>";
@@ -159,8 +164,14 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MK;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Michael Kirk";
+				TargetAttributes = {
+					1E067DA917BD947C00175ED7 = {
+						DevelopmentTeam = 4RH8T97BYZ;
+					};
+				};
 			};
 			buildConfigurationList = 1E067DA517BD947C00175ED7 /* Build configuration list for PBXProject "MKSlidingTableViewCell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -202,6 +213,7 @@
 			files = (
 				1E067DBA17BD947C00175ED7 /* main.m in Sources */,
 				1E067DBE17BD947C00175ED7 /* MKAppDelegate.m in Sources */,
+				FE8271481C945C48009327C5 /* MKSwiftViewController.swift in Sources */,
 				C8BF78821BA6F30700A118B7 /* MKActionTableViewCell.m in Sources */,
 				1E067DCD17BD947C00175ED7 /* MKViewController.m in Sources */,
 				1E067DEE17BD950200175ED7 /* MKSlidingTableViewCell.m in Sources */,
@@ -299,6 +311,8 @@
 		1E067DE617BD947D00175ED7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -307,8 +321,12 @@
 				GCC_PREFIX_HEADER = "MKSlidingTableViewCell/MKSlidingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "MKSlidingTableViewCell/MKSlidingTableViewCell-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.amichnia.AMKSlidingTableViewCell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MKSlidingTableViewCell/MKSlidingTableViewCell-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -316,6 +334,8 @@
 		1E067DE717BD947D00175ED7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -324,8 +344,11 @@
 				GCC_PREFIX_HEADER = "MKSlidingTableViewCell/MKSlidingTableViewCell-Prefix.pch";
 				INFOPLIST_FILE = "MKSlidingTableViewCell/MKSlidingTableViewCell-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.amichnia.AMKSlidingTableViewCell;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MKSlidingTableViewCell/MKSlidingTableViewCell-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
