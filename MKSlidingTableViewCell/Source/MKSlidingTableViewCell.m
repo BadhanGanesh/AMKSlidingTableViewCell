@@ -21,6 +21,7 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 @property (assign, nonatomic) IBInspectable BOOL bounceLeft;
 @property (assign, nonatomic) IBInspectable BOOL autoClose;
 @property (assign, nonatomic) IBInspectable CGFloat autoCloseDelay;
+@property (nonatomic, assign) CGFloat mainDrawerRevealAmount;
 
 @end
 
@@ -139,6 +140,7 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     if([drawerView isKindOfClass:[MKActionTableViewCell class]])
     {
         MKActionTableViewCell *actionCell = (MKActionTableViewCell*)drawerView;
+        actionCell.isBackground = YES;
         [self setDrawerRevealAmount:actionCell.actionBounds.size.width];
         self.actionCell = actionCell;
     }
@@ -154,6 +156,8 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     if([foregroundView isKindOfClass:[MKActionTableViewCell class]])
     {
         MKActionTableViewCell *actionCell = (MKActionTableViewCell*)foregroundView;
+        actionCell.isBackground = NO;
+        _mainDrawerRevealAmount = actionCell.actionBounds.size.width;
         self.mainActionCell = actionCell;
     }
     
@@ -195,7 +199,9 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
     CGFloat progress = self.containerScrollView.contentOffset.x / self.drawerRevealAmount;
     
     [self.actionCell setRevealProgress:progress];
-    [self.mainActionCell setRevealProgress:progress];
+    CGFloat multiplier = (self.mainDrawerRevealAmount != 0) ? self.drawerRevealAmount / self.mainDrawerRevealAmount : 0;
+    CGFloat mainCellProgress = progress * multiplier;
+    [self.mainActionCell setRevealProgress:mainCellProgress];
     
     // Check steps
     NSInteger step = [self computeCurrentStepForOffset:scrollView.contentOffset];
