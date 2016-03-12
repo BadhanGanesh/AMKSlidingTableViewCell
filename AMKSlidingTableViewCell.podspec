@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "Andrzej Michnia" => "amichnia@gmail.com", "Michael Kirk" => "michael.winter.kirk@gmail.com", "Sam Corder" => "sam.corder@gmail.com" }
   s.platform     = :ios, '8.0'
-  s.source       = { :git => "https://github.com/amichnia/AMKSlidingTableViewCell.git" :tag => '1.0.0' }
+  s.source       = { :git => "https://github.com/amichnia/AMKSlidingTableViewCell.git", :tag => '1.0.0' }
   s.source_files  = 'MKSlidingTableViewCell/Source'
   s.requires_arc = true
 end
