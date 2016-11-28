@@ -13,19 +13,19 @@ class MKSwiftViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet var tableView: UITableView!
     
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let
-        containerCell = tableView.dequeueReusableCellWithIdentifier("container") as? MKSlidingTableViewCell,
-        foregroundCell = tableView.dequeueReusableCellWithIdentifier("foreground") as? MKActionTableViewCell, // Or its subclass
-        drawerCell = tableView.dequeueReusableCellWithIdentifier("background") as? MKActionTableViewCell  // Or its subclass
+        containerCell = tableView.dequeueReusableCell(withIdentifier: "container") as? MKSlidingTableViewCell,
+        let foregroundCell = tableView.dequeueReusableCell(withIdentifier: "foreground") as? MKActionTableViewCell, // Or its subclass
+        let drawerCell = tableView.dequeueReusableCell(withIdentifier: "background") as? MKActionTableViewCell  // Or its subclass
         else {
             return UITableViewCell()
         }
@@ -37,7 +37,7 @@ class MKSwiftViewController: UIViewController, UITableViewDataSource, UITableVie
         return containerCell
     }
 
-    func didSelectSlidingTableViewCell(cell: MKSlidingTableViewCell!) {
+    func didSelect(_ cell: MKSlidingTableViewCell!) {
         print("Did select")
     }
     

@@ -43,6 +43,8 @@ NSString * const MKDrawerDidCloseNotification = @"MKDrawerDidCloseNotification";
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
+    
     [self initializeCell];
 }
 
